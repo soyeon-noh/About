@@ -1,8 +1,12 @@
+import 'package:about/models/book_model.dart';
+import 'package:about/services/api_service.dart';
+import 'package:about/widgets/book_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
+  final Future<List<BookModel>> books = ApiService.getUsersBooks();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,6 +15,36 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
+          // Padding(
+          //   padding: EdgeInsets.all(8.0),
+          //   child: Text(
+          //     '검색',
+          //     style: TextStyle(
+          //       color: Colors.black,
+          //       fontSize: 16,
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.all(8.0),
+          //   child: Text(
+          //     '서재',
+          //     style: TextStyle(
+          //       color: Colors.black,
+          //       fontSize: 16,
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.all(8.0),
+          //   child: Text(
+          //     '메뉴',
+          //     style: TextStyle(
+          //       color: Colors.black,
+          //       fontSize: 16,
+          //     ),
+          //   ),
+          // ),
           IconButton(
             onPressed: () {},
             icon: const Icon(
@@ -18,12 +52,75 @@ class HomeScreen extends StatelessWidget {
             ),
             color: Colors.black,
           ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(Icons.book),
+          //   color: Colors.black,
+          // ),
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.menu_rounded),
             color: Colors.black,
           ),
+          const SizedBox(
+            width: 15,
+          )
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 10,
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: const [
+              Icon(
+                Icons.home_rounded,
+                size: 30,
+              ),
+              Icon(
+                Icons.menu_book_rounded,
+                size: 30,
+              ),
+              Icon(
+                Icons.create_rounded,
+                size: 30,
+              )
+            ],
+          ),
+        ),
+        // elevation: 0,
+        // backgroundColor: Colors.white,
+        // selectedItemColor: Colors.black,
+        // selectedIconTheme: const IconThemeData(
+        //   color: Colors.black,
+        // ),
+        // unselectedIconTheme: const IconThemeData(
+        //   color: Colors.black54,
+        // ),
+        // showSelectedLabels: false,
+        // showUnselectedLabels: false,
+        // items: const [
+        //   BottomNavigationBarItem(
+        //     icon: Icon(
+        //       Icons.home_rounded,
+        //     ),
+        //     label: '홈',
+        //   ),
+        //   BottomNavigationBarItem(
+        //     icon: Icon(
+        //       Icons.menu_book_rounded,
+        //     ),
+        //     label: '서재',
+        //   ),
+        //   BottomNavigationBarItem(
+        //     icon: Icon(
+        //       Icons.create,
+        //     ),
+        //     label: '작성',
+        //   ),
+        // ],
       ),
       body: Column(
         children: [
@@ -43,14 +140,17 @@ class HomeScreen extends StatelessWidget {
             height: 40,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 Text(''),
                 Text(
                   '정렬',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black54,
+                  ),
                   textAlign: TextAlign.right,
                 ),
               ],
@@ -59,66 +159,35 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          Expanded(
-            child: ListView(
-              children: [
-                // const Image(
-                //   image: AssetImage(
-                //     'assets/images/wood.png',
-                //   ),
-                //   height: 200,
-                // ),
+          FutureBuilder(
+            future: books,
+            builder: (context, snapshot) {
+              return Expanded(
+                child: ListView.separated(
+                  itemCount: snapshot.data?.length ?? 0, //여기 수정필요
+                  itemBuilder: (context, index) {
+                    var book = snapshot.data![index];
 
-                for (var i = 0; i < 20; i++) const BookWidget(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BookWidget extends StatelessWidget {
-  const BookWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black12))),
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      margin: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                '화산귀환',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-              ),
-              Text(
-                '무협 | 시리즈 | 읽는중',
-                style: TextStyle(fontSize: 15),
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: const [
-              Text(
-                '1411/ - 화',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-              ),
-              Text(
-                '66일전',
-                style: TextStyle(color: Colors.black54),
-              ),
-            ],
+                    print(index);
+                    return Book(
+                      title: book.title,
+                      genre: book.genre,
+                      author: book.author,
+                      platform: book.platform,
+                      isCompleted: book.isCompleted,
+                      completedNum: book.completedNum,
+                      readNum: book.readNum,
+                      date: book.date,
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      width: 30,
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ],
       ),

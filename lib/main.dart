@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     MaterialApp(
-      theme: ThemeData(fontFamily: 'Nanum'),
-      home: const HomeScreen(),
+      theme: ThemeData(
+        fontFamily: 'Noto',
+      ),
+      home: HomeScreen(),
     ),
   );
 }
