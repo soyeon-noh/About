@@ -15,36 +15,6 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
-          // Padding(
-          //   padding: EdgeInsets.all(8.0),
-          //   child: Text(
-          //     '검색',
-          //     style: TextStyle(
-          //       color: Colors.black,
-          //       fontSize: 16,
-          //     ),
-          //   ),
-          // ),
-          // Padding(
-          //   padding: EdgeInsets.all(8.0),
-          //   child: Text(
-          //     '서재',
-          //     style: TextStyle(
-          //       color: Colors.black,
-          //       fontSize: 16,
-          //     ),
-          //   ),
-          // ),
-          // Padding(
-          //   padding: EdgeInsets.all(8.0),
-          //   child: Text(
-          //     '메뉴',
-          //     style: TextStyle(
-          //       color: Colors.black,
-          //       fontSize: 16,
-          //     ),
-          //   ),
-          // ),
           IconButton(
             onPressed: () {},
             icon: const Icon(
@@ -52,11 +22,6 @@ class HomeScreen extends StatelessWidget {
             ),
             color: Colors.black,
           ),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: const Icon(Icons.book),
-          //   color: Colors.black,
-          // ),
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.menu_rounded),
@@ -90,37 +55,6 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        // elevation: 0,
-        // backgroundColor: Colors.white,
-        // selectedItemColor: Colors.black,
-        // selectedIconTheme: const IconThemeData(
-        //   color: Colors.black,
-        // ),
-        // unselectedIconTheme: const IconThemeData(
-        //   color: Colors.black54,
-        // ),
-        // showSelectedLabels: false,
-        // showUnselectedLabels: false,
-        // items: const [
-        //   BottomNavigationBarItem(
-        //     icon: Icon(
-        //       Icons.home_rounded,
-        //     ),
-        //     label: '홈',
-        //   ),
-        //   BottomNavigationBarItem(
-        //     icon: Icon(
-        //       Icons.menu_book_rounded,
-        //     ),
-        //     label: '서재',
-        //   ),
-        //   BottomNavigationBarItem(
-        //     icon: Icon(
-        //       Icons.create,
-        //     ),
-        //     label: '작성',
-        //   ),
-        // ],
       ),
       body: Column(
         children: [
@@ -177,12 +111,19 @@ class HomeScreen extends StatelessWidget {
                       isCompleted: book.isCompleted,
                       completedNum: book.completedNum,
                       readNum: book.readNum,
-                      date: book.date,
+                      frstDt: book.frstDt,
+                      lstDt: book.lstDt,
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      width: 30,
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                      ),
+                      decoration: const BoxDecoration(
+                        border:
+                            Border(bottom: BorderSide(color: Colors.black12)),
+                      ),
                     );
                   },
                 ),

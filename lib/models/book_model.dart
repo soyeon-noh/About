@@ -1,5 +1,5 @@
 class BookModel {
-  final String bookId, userId, title, author, genre, platform, date;
+  final String bookId, userId, title, author, genre, platform, frstDt, lstDt;
   final bool isCompleted, islikely;
   final int readNum, completedNum;
 
@@ -10,7 +10,8 @@ class BookModel {
         author = json['author'],
         genre = json['genre'],
         platform = json['platform'],
-        date = json['date'],
+        frstDt = json['frstDt'],
+        lstDt = json['lstDt'],
         isCompleted = json['isCompleted'],
         islikely = json['islikely'],
         readNum = json['readNum'],
