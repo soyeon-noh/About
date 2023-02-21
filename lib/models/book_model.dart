@@ -1,7 +1,8 @@
 class BookModel {
-  final String bookId, userId, title, author, genre, platform, frstDt, lstDt;
+  final String bookId, userId, title, frstDt, lstDt;
+  final String? author, genre, platform;
   final bool isCompleted, islikely;
-  final int readNum, completedNum;
+  final int? readNum, completedNum;
 
   BookModel.fromJson(Map<String, dynamic> json)
       : bookId = json['bookId'],

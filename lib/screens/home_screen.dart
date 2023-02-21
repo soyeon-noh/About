@@ -1,95 +1,52 @@
 import 'package:about/models/book_model.dart';
 import 'package:about/services/api_service.dart';
 import 'package:about/widgets/book_widget.dart';
+import 'package:about/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final Future<List<BookModel>> books = ApiService.getUsersBooks();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search_rounded,
-            ),
-            color: Colors.black,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.menu_rounded),
-            color: Colors.black,
-          ),
-          const SizedBox(
-            width: 15,
-          )
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 10,
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
-              Icon(
-                Icons.home_rounded,
-                size: 30,
-              ),
-              Icon(
-                Icons.menu_book_rounded,
-                size: 30,
-              ),
-              Icon(
-                Icons.create_rounded,
-                size: 30,
-              )
-            ],
-          ),
-        ),
-      ),
       body: Column(
         children: [
-          Column(
-            children: const [
-              Text(
-                '책씹어먹는',
-                style: TextStyle(fontSize: 20),
-              ),
-              Text(
-                '해파리',
-                style: TextStyle(fontSize: 30),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Header(
+            assetImage: const AssetImage('assets/images/gradient1.png'),
+            paddingTop: 60,
+            paddingBottom: 30,
+            insideWidget: Column(
               children: const [
-                Text(''),
                 Text(
-                  '정렬',
+                  '책씹어먹는',
                   style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
+                    fontSize: 20,
+                    color: Colors.white,
                   ),
-                  textAlign: TextAlign.right,
+                ),
+                Text(
+                  '해파리',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          const _dropdwonButtonSet(
+              // dateSelectedValue: _dateSelectedValue,
+              // dateValueList: _dateValueList,
+              // readSelectedValue: _readSelectedValue,
+              // readValueList: _readValueList,
+              ),
           const SizedBox(
             height: 8,
           ),
@@ -122,13 +79,92 @@ class HomeScreen extends StatelessWidget {
                       ),
                       decoration: const BoxDecoration(
                         border:
-                            Border(bottom: BorderSide(color: Colors.black12)),
+                            Border(bottom: BorderSide(color: Colors.black26)),
                       ),
                     );
                   },
                 ),
               );
             },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+final _dateValueList = ['최신순', '등록순'];
+final _readValueList = ['전체', '읽는중', '완독'];
+
+var _dateSelectedValue = '최신순';
+var _readSelectedValue = '전체';
+
+class _dropdwonButtonSet extends StatefulWidget {
+  const _dropdwonButtonSet();
+
+  @override
+  State<_dropdwonButtonSet> createState() => _dropdwonButtonSetState();
+}
+
+class _dropdwonButtonSetState extends State<_dropdwonButtonSet> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40), // 38?
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              DropdownButton(
+                elevation: 0,
+                dropdownColor: const Color.fromRGBO(235, 235, 235, 1),
+                underline: const SizedBox.shrink(), //userline지우기
+                value: _dateSelectedValue,
+                items: _dateValueList.map((value) {
+                  return DropdownMenuItem(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ));
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _dateSelectedValue = value!;
+                  });
+                  print(value);
+                },
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+              DropdownButton(
+                elevation: 0,
+                dropdownColor: const Color.fromRGBO(235, 235, 235, 1),
+
+                underline: const SizedBox.shrink(), //userline지우기
+                value: _readSelectedValue,
+                items: _readValueList.map((value) {
+                  return DropdownMenuItem(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ));
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _readSelectedValue = value!;
+                  });
+                  print(value);
+                },
+              ),
+            ],
           ),
         ],
       ),

@@ -1,4 +1,4 @@
-import 'package:about/screens/home_screen.dart';
+import 'package:about/widgets/bottom_navigator.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,8 +6,15 @@ void main() {
     MaterialApp(
       theme: ThemeData(
         fontFamily: 'Noto',
+        primaryColor: const Color(0xff6f64d7),
       ),
-      home: HomeScreen(),
+      home: BottomNavigator(),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => HomeScreen(),
+      //   '/create': (context) => const CreateScreen(),
+      //   '/chart': (context) => const ChartScreen(),
+      // },
     ),
   );
 }
