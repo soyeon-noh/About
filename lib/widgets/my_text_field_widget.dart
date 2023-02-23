@@ -7,22 +7,25 @@ class MyTextField extends StatelessWidget {
     required this.label,
   });
 
-  final pink = const Color(0xFFFACCCC);
-  final grey = const Color(0xFFF2F2F7);
-
   @override
   Widget build(BuildContext context) {
+    final purple = Theme.of(context).primaryColor;
+    const grey = Colors.black12;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(
-                label,
-                style: const TextStyle(fontSize: 14),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Row(
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
           ),
           TextFormField(
             cursorColor: Theme.of(context).primaryColor,
@@ -32,13 +35,16 @@ class MyTextField extends StatelessWidget {
               hintStyle: const TextStyle(
                 fontSize: 14,
               ),
-              focusColor: pink,
-              focusedBorder: _border(pink),
+              focusColor: purple,
+              focusedBorder: _border(purple),
               border: _border(grey),
               enabledBorder: const UnderlineInputBorder(),
 
               // hintText: '제목',
-              contentPadding: const EdgeInsets.symmetric(vertical: 20),
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 10,
+              ),
             ),
             onSaved: (val) {},
             validator: (val) {

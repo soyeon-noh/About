@@ -49,27 +49,45 @@ class CreateScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
-                  children: const [
-                    MyTextField(
+                  children: [
+                    const MyTextField(
                       label: '제목',
                     ),
-                    MyTextField(
+                    const MyTextField(
                       label: '작가',
                     ),
-                    MyTextField(
-                      label: '장르',
-                    ),
-                    MyTextField(
-                      label: '플랫폼',
-                    ),
-                    MyTextField(
+                    const MyTextField(
                       label: '완결여부',
                     ),
-                    MyTextField(
-                      label: '읽은 화수',
+                    Row(
+                      children: const [
+                        Expanded(
+                          child: MyTextField(
+                            label: '장르',
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: MyTextField(
+                            label: '플랫폼',
+                          ),
+                        ),
+                      ],
                     ),
-                    MyTextField(
-                      label: '완결 화수',
+                    Row(
+                      children: const [
+                        Expanded(
+                          child: MyTextField(
+                            label: '읽은 화수',
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: MyTextField(
+                            label: '완결 화수',
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

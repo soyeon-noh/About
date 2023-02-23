@@ -4,10 +4,20 @@ import 'package:about/widgets/book_widget.dart';
 import 'package:about/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatelessWidget {
-  SearchScreen({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   final pink = const Color(0xFFFACCCC);
+
   final grey = const Color(0xFFF2F2F7);
+
+  var _selectedValue = '제목';
+  final _valueList = ['제목', '작가', '장르', '플랫폼'];
   final Future<List<BookModel>> books = ApiService.getUsersBooks();
 
   @override
@@ -24,24 +34,63 @@ class SearchScreen extends StatelessWidget {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width - 32,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      focusColor: pink,
-                      focusedBorder: _border(pink),
-                      border: _border(grey),
-                      enabledBorder: _border(grey),
-                      hintText: '제목, 작가, 태그 검색',
-                      contentPadding: const EdgeInsets.symmetric(vertical: 20),
-                      prefixIcon: const Icon(
-                        Icons.search_rounded,
-                        color: Colors.grey,
+                  child: Stack(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            focusColor: pink,
+                            focusedBorder: _border(pink),
+                            border: _border(grey),
+                            enabledBorder: _border(grey),
+                            hintText: '검색',
+                            contentPadding: const EdgeInsets.only(
+                              top: 10,
+                              bottom: 10,
+                              right: 20,
+                              left: 100,
+                            ),
+                            suffixIcon: const Icon(
+                              Icons.search_rounded,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          onFieldSubmitted: (value) {
+                            print(value);
+                          },
+                        ),
                       ),
-                    ),
-                    onFieldSubmitted: (value) {
-                      print(value);
-                    },
+                      Positioned(
+                        left: 20,
+                        child: DropdownButton(
+                          focusColor: Colors.white,
+                          elevation: 0,
+                          dropdownColor:
+                              const Color.fromARGB(255, 255, 255, 255),
+
+                          underline: const SizedBox.shrink(), //userline지우기
+                          value: _selectedValue,
+                          items: _valueList.map((value) {
+                            return DropdownMenuItem(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ));
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                            print(value);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
