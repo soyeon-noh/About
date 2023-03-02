@@ -286,10 +286,33 @@ class ApiService {
       'completedNum': 490,
     },
   ];
+// 더미데이터2
+  static const List<dynamic> books2 = [
+    {
+      'bookId': 'book1',
+      'userId': 'user1',
+      'title': '화산귀환',
+      'author': '비가',
+      'genre': '무협',
+      'platform': '시리즈',
+      'frstDt': '20230217',
+      'lstDt': '20230217',
+      'isCompleted': false,
+      'islikely': false,
+      'readNum': 1411,
+      'completedNum': null,
+    },
+  ];
 
-  static Future<List<BookModel>> getUsersBooks() async {
+  static Future<List<BookModel>> getUsersBooks(
+      {List<String>? condition}) async {
     List<BookModel> bookInstances = [];
     print('getUserBooks');
+    if (condition != null) {
+      print(condition.map((e) => print(e)));
+      print('뭐임');
+    }
+
     final url = Uri.parse('$baseUrl/$book');
     // final response = await http.get(url);
 

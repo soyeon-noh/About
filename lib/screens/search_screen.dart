@@ -1,4 +1,5 @@
 import 'package:about/models/book_model.dart';
+import 'package:about/screens/modal_screen.dart';
 import 'package:about/services/api_service.dart';
 import 'package:about/widgets/book_widget.dart';
 import 'package:about/widgets/header_widget.dart';
@@ -109,16 +110,32 @@ class _SearchScreenState extends State<SearchScreen> {
                     var book = snapshot.data![index];
 
                     print(index);
-                    return Book(
-                      title: book.title,
-                      genre: book.genre,
-                      author: book.author,
-                      platform: book.platform,
-                      isCompleted: book.isCompleted,
-                      completedNum: book.completedNum,
-                      readNum: book.readNum,
-                      frstDt: book.frstDt,
-                      lstDt: book.lstDt,
+                    return GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                          builder: (context) {
+                            return ModalScreen(book: book);
+                          },
+                        );
+                      },
+                      child: Book(
+                        title: book.title,
+                        genre: book.genre,
+                        author: book.author,
+                        platform: book.platform,
+                        isCompleted: book.isCompleted,
+                        completedNum: book.completedNum,
+                        readNum: book.readNum,
+                        frstDt: book.frstDt,
+                        lstDt: book.lstDt,
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) {

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
   final String label;
-  const MyTextField({
-    super.key,
-    required this.label,
-  });
+  final bool isNum;
+  final int maxLength;
+  const MyTextField(
+      {super.key,
+      required this.label,
+      required this.isNum,
+      required this.maxLength});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class MyTextField extends StatelessWidget {
     const grey = Colors.black12;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 0.0),
       child: Column(
         children: [
           Padding(
@@ -22,27 +25,37 @@ class MyTextField extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 13),
                 ),
               ],
             ),
           ),
           TextFormField(
             cursorColor: Theme.of(context).primaryColor,
+            keyboardType: isNum ? TextInputType.number : TextInputType.text,
+            maxLength: maxLength,
             decoration: InputDecoration(
-              filled: false,
-              // fillColor: Colors.white,
+              filled: true,
+              fillColor: const Color.fromARGB(10, 0, 0, 0),
               hintStyle: const TextStyle(
                 fontSize: 14,
               ),
-              focusColor: purple,
-              focusedBorder: _border(purple),
-              border: _border(grey),
-              enabledBorder: const UnderlineInputBorder(),
+              suffixText: isNum ? '화' : '',
+              focusColor: Theme.of(context).primaryColor,
+
+              focusedBorder: _border(
+                Theme.of(context).primaryColor,
+              ),
+              border: _border(
+                Colors.transparent,
+              ),
+              enabledBorder: const UnderlineInputBorder(
+                borderSide: BorderSide.none,
+              ),
 
               // hintText: '제목',
               contentPadding: const EdgeInsets.symmetric(
-                vertical: 10,
+                // vertical: 10,
                 horizontal: 10,
               ),
             ),
@@ -50,14 +63,14 @@ class MyTextField extends StatelessWidget {
             validator: (val) {
               return null;
             },
-          )
+          ),
         ],
       ),
     );
   }
 
   OutlineInputBorder _border(Color color) => OutlineInputBorder(
-        borderSide: BorderSide(width: 0.5, color: color),
-        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(width: 1, color: color),
+        borderRadius: BorderRadius.circular(8),
       );
 }
