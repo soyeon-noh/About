@@ -28,41 +28,8 @@ class _ModalScreenState extends State<ModalScreen> {
       child: Center(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 20,
-                top: 20,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  Text(
-                    '수정',
-                    style: TextStyle(
-                      color: Colors.black45,
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    '삭제',
-                    style: TextStyle(
-                      color: Colors.black45,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 30,
-                bottom: 40,
-              ),
-              child: Text(
-                widget.book.title,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-              ),
-            ),
+            const TopPart(),
+            BookTitle(widget: widget),
             SizedBox(
               width: 140,
               height: 140,
@@ -96,82 +63,146 @@ class _ModalScreenState extends State<ModalScreen> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${widget.book.readNum}',
-                    style: TextStyle(
-                      fontSize: 36,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  const Text(
-                    ' / ',
-                    style: TextStyle(
-                      fontSize: 36,
-                      // color: Theme.of(context).primaryColor,
-                      color: Colors.black45,
-                    ),
-                  ),
-                  Text(
-                    (widget.book.completedNum == null)
-                        ? ' - '
-                        : '${widget.book.completedNum}',
-                    style: const TextStyle(
-                      fontSize: 36,
-                      color: Colors.black45,
-                      // color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: 170,
-              child: (() {
-                if (widget.book.readNum != null &&
-                    widget.book.completedNum != null) {
-                  return LinearPercentIndicator(
-                    width: 170,
-                    animation: true,
-                    lineHeight: 20.0,
-                    animationDuration: 1000,
-                    percent: widget.book.readNum! / widget.book.completedNum!,
-                    center: Text(
-                      '${(widget.book.readNum! / widget.book.completedNum! * 100).toStringAsFixed(0)}%',
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    progressColor: Theme.of(context).primaryColor,
-                  );
-                } else if (widget.book.readNum != null &&
-                    widget.book.completedNum == null) {
-                  return LinearPercentIndicator(
-                    width: 170,
-                    animation: true,
-                    lineHeight: 20.0,
-                    animationDuration: 1000,
-                    percent: 1,
-                    progressColor: Theme.of(context).primaryColor,
-                  );
-                } else {
-                  return LinearPercentIndicator(
-                    width: 170,
-                    animation: true,
-                    lineHeight: 20.0,
-                    animationDuration: 1000,
-                    percent: 0,
-                    progressColor: Theme.of(context).primaryColor,
-                  );
-                }
-              })(),
-            )
+            ReadNumberText(context),
+            PercentBar(context)
           ],
         ),
+      ),
+    );
+  }
+
+  Padding ReadNumberText(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '${widget.book.readNum}',
+            style: TextStyle(
+              fontSize: 36,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+          const Text(
+            ' / ',
+            style: TextStyle(
+              fontSize: 36,
+              // color: Theme.of(context).primaryColor,
+              color: Colors.black45,
+            ),
+          ),
+          Text(
+            (widget.book.completedNum == null)
+                ? ' - '
+                : '${widget.book.completedNum}',
+            style: const TextStyle(
+              fontSize: 36,
+              color: Colors.black45,
+              // color: Theme.of(context).primaryColor,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SizedBox PercentBar(BuildContext context) {
+    return SizedBox(
+      width: 170,
+      child: (() {
+        if (widget.book.readNum != null && widget.book.completedNum != null) {
+          return LinearPercentIndicator(
+            width: 170,
+            animation: true,
+            lineHeight: 20.0,
+            animationDuration: 1000,
+            percent: widget.book.readNum! / widget.book.completedNum!,
+            center: Text(
+              '${(widget.book.readNum! / widget.book.completedNum! * 100).toStringAsFixed(0)}%',
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            progressColor: Theme.of(context).primaryColor,
+          );
+        } else if (widget.book.readNum != null &&
+            widget.book.completedNum == null) {
+          return LinearPercentIndicator(
+            width: 170,
+            animation: true,
+            lineHeight: 20.0,
+            animationDuration: 1000,
+            percent: 1,
+            progressColor: Theme.of(context).primaryColor,
+          );
+        } else {
+          return LinearPercentIndicator(
+            width: 170,
+            animation: true,
+            lineHeight: 20.0,
+            animationDuration: 1000,
+            percent: 0,
+            progressColor: Theme.of(context).primaryColor,
+          );
+        }
+      })(),
+    );
+  }
+}
+
+class BookTitle extends StatelessWidget {
+  const BookTitle({
+    super.key,
+    required this.widget,
+  });
+
+  final ModalScreen widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 30,
+        bottom: 40,
+      ),
+      child: Text(
+        widget.book.title,
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+      ),
+    );
+  }
+}
+
+class TopPart extends StatelessWidget {
+  const TopPart({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 20,
+        top: 20,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: const [
+          Text(
+            '수정',
+            style: TextStyle(
+              color: Colors.black45,
+            ),
+          ),
+          SizedBox(width: 20),
+          Text(
+            '삭제',
+            style: TextStyle(
+              color: Colors.black45,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -4,11 +4,18 @@ class MyTextField extends StatelessWidget {
   final String label;
   final bool isNum;
   final int maxLength;
-  const MyTextField(
-      {super.key,
-      required this.label,
-      required this.isNum,
-      required this.maxLength});
+  final bool isEssential;
+  final FormFieldSetter onSaved;
+  final FormFieldValidator validator;
+  const MyTextField({
+    super.key,
+    required this.label,
+    required this.isNum,
+    required this.maxLength,
+    required this.isEssential,
+    required this.onSaved,
+    required this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +30,25 @@ class MyTextField extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 10.0),
             child: Row(
               children: [
-                Text(
-                  label,
-                  style: const TextStyle(fontSize: 13),
+                RichText(
+                  text: TextSpan(
+                      text: label,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Colors.black,
+                        fontFamily: 'Noto',
+                      ),
+                      children: [
+                        isEssential
+                            ? const TextSpan(
+                                text: ' *',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ))
+                            : const TextSpan(
+                                text: '',
+                              )
+                      ]),
                 ),
               ],
             ),
@@ -41,6 +64,7 @@ class MyTextField extends StatelessWidget {
                 fontSize: 14,
               ),
               suffixText: isNum ? '화' : '',
+
               focusColor: Theme.of(context).primaryColor,
 
               focusedBorder: _border(
@@ -59,10 +83,8 @@ class MyTextField extends StatelessWidget {
                 horizontal: 10,
               ),
             ),
-            onSaved: (val) {},
-            validator: (val) {
-              return null;
-            },
+            onSaved: onSaved,
+            validator: validator,
           ),
         ],
       ),
