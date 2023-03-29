@@ -65,68 +65,55 @@ class CreateScreen extends StatelessWidget {
                       },
                     ),
                     const RadioButton(),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: MyTextField(
-                            label: '장르',
-                            isNum: false,
-                            maxLength: 10,
-                            isEssential: false,
-                            onSaved: (newValue) {},
-                            validator: (value) {
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: MyTextField(
-                            label: '플랫폼',
-                            isNum: false,
-                            maxLength: 10,
-                            isEssential: false,
-                            onSaved: (newValue) {},
-                            validator: (value) {
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
+                    MyTextField(
+                      label: '장르',
+                      isNum: false,
+                      maxLength: 10,
+                      isEssential: false,
+                      onSaved: (newValue) {},
+                      validator: (value) {
+                        return null;
+                      },
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: MyTextField(
-                            label: '읽은 화수',
-                            isNum: true,
-                            maxLength: 10,
-                            isEssential: false,
-                            onSaved: (newValue) {},
-                            validator: (value) {
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: MyTextField(
-                            label: '완결 화수',
-                            isNum: true,
-                            maxLength: 10,
-                            isEssential: false,
-                            onSaved: (newValue) {},
-                            validator: (value) {
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
+                    const SizedBox(width: 10),
+                    MyTextField(
+                      label: '플랫폼',
+                      isNum: false,
+                      maxLength: 10,
+                      isEssential: false,
+                      onSaved: (newValue) {},
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    MyTextField(
+                      label: '읽은 화수',
+                      isNum: true,
+                      maxLength: 10,
+                      isEssential: false,
+                      onSaved: (newValue) {},
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    MyTextField(
+                      label: '완결 화수',
+                      isNum: true,
+                      maxLength: 10,
+                      isEssential: false,
+                      onSaved: (newValue) {},
+                      validator: (value) {
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 30,
                     ),
                     SaveButton(formKey: formKey),
+                    const SizedBox(
+                      height: 30,
+                    )
                   ],
                 ),
               ),

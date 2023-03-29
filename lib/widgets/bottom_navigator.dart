@@ -1,4 +1,3 @@
-import 'package:about/screens/chart_screen.dart';
 import 'package:about/screens/create_screen.dart';
 import 'package:about/screens/home_screen.dart';
 import 'package:about/screens/search_screen.dart';
@@ -9,10 +8,10 @@ class BottomNavigator extends StatelessWidget {
   BottomNavigator({super.key});
 
   final List<Widget> _widgetOptions = [
-    HomeScreen(),
-    SearchScreen(),
+    const HomeScreen(),
+    const SearchScreen(),
     CreateScreen(),
-    const ChartScreen(),
+    // const ChartScreen(),
     const UserScreen(),
   ];
 
@@ -20,7 +19,7 @@ class BottomNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 5,
+      length: 4, // chart를 추가하려면 5로 변경
       child: Scaffold(
         backgroundColor: Colors.white,
         extendBodyBehindAppBar: true, // body 위에 appbar
@@ -66,12 +65,12 @@ class BottomNavigator extends StatelessWidget {
                 size: 30,
               ),
             ),
-            Tab(
-              icon: Icon(
-                Icons.bar_chart_rounded,
-                size: 30,
-              ),
-            ),
+            // Tab(
+            //   icon: Icon(
+            //     Icons.bar_chart_rounded,
+            //     size: 30,
+            //   ),
+            // ),
             Tab(
               icon: Icon(
                 Icons.person,

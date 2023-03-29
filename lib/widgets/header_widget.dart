@@ -20,7 +20,7 @@ class Header extends StatelessWidget {
         bottom: paddingBottom,
       ),
       decoration: BoxDecoration(
-        image: DecorationImage(image: assetImage, fit: BoxFit.fitWidth),
+        // image: DecorationImage(image: assetImage, fit: BoxFit.fitWidth),
         color: Theme.of(context).primaryColor,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20),
