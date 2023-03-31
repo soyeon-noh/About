@@ -51,6 +51,9 @@ class CreateScreen extends StatelessWidget {
                       isEssential: true,
                       onSaved: (newValue) {},
                       validator: (value) {
+                        if (value.isEmpty) {
+                          return '제목을 입력해주세요.';
+                        }
                         return null;
                       },
                     ),
