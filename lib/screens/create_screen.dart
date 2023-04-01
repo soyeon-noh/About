@@ -49,7 +49,7 @@ class CreateScreen extends StatelessWidget {
                       isNum: false,
                       maxLength: 30,
                       isEssential: true,
-                      onSaved: (newValue) {},
+                      onSaved: (value) {},
                       validator: (value) {
                         if (value.isEmpty) {
                           return '제목을 입력해주세요.';
@@ -62,7 +62,7 @@ class CreateScreen extends StatelessWidget {
                       isNum: false,
                       maxLength: 10,
                       isEssential: false,
-                      onSaved: (newValue) {},
+                      onSaved: (value) {},
                       validator: (value) {
                         return null;
                       },
@@ -94,7 +94,7 @@ class CreateScreen extends StatelessWidget {
                       isNum: true,
                       maxLength: 10,
                       isEssential: false,
-                      onSaved: (newValue) {},
+                      onSaved: (value) {},
                       validator: (value) {
                         return null;
                       },
@@ -105,7 +105,7 @@ class CreateScreen extends StatelessWidget {
                       isNum: true,
                       maxLength: 10,
                       isEssential: false,
-                      onSaved: (newValue) {},
+                      onSaved: (value) {},
                       validator: (value) {
                         return null;
                       },

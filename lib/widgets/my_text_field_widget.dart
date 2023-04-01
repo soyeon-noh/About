@@ -57,6 +57,7 @@ class MyTextField extends StatelessWidget {
             cursorColor: Theme.of(context).primaryColor,
             keyboardType: isNum ? TextInputType.number : TextInputType.text,
             maxLength: maxLength,
+            autovalidateMode: AutovalidateMode.always,
             decoration: InputDecoration(
               filled: true,
               fillColor: const Color.fromARGB(10, 0, 0, 0),
